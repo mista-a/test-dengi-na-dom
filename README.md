@@ -1,3 +1,6 @@
+## Deploy 
+https://test-dengi-na-dom.vercel.app/
+
 ## Setup
 
 ```bash
@@ -19,10 +22,4 @@ Locally preview production build:
 ```bash
 # npm
 npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
 ```
