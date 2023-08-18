@@ -8,7 +8,7 @@ export const useCharactersStore = defineStore('charactersStore', () => {
   const charactersFilters = useCharactersFiltersStore()
 
   const characters = ref<ICharacter[]>([])
-  const charactersDataInfo = ref<ICharacterDataInfo>({ pages: 1 })
+  const charactersDataInfo = ref<ICharacterDataInfo>({ pages: 0 })
   const charactersDataCurrentPage = ref(1)
   const isCharactersFetching = ref(false)
 
