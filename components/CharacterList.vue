@@ -1,6 +1,6 @@
 <template>
-  <h2 v-if="!characters.length">Not found.</h2>
   <div class="characters-wrapper">
+    <h2 v-if="!characters.length">Not found.</h2>
     <InfiniteScroller class="characters" @infinite="getNewCharactersPage">
       <CharacterCard
         v-for="(character, index) of characters"
