@@ -5,23 +5,26 @@
   </div>
 </template>
 
-<script setup>
-const emits = defineEmits(['infinite'])
+<script setup lang="ts">
+const emits = defineEmits<{ infinite: [] }>()
 
-let scroller = ref(null)
-let endOfScroller = ref(null)
+const scroller = ref(null)
+const endOfScroller = ref(null)
 
 onMounted(() => {
   const observer = new IntersectionObserver(
     (entries) => {
-      let entry = entries[0]
+      const entry = entries[0]
       if (entry.isIntersecting) {
         emits('infinite')
       }
     },
     { root: null }
   )
-  observer.observe(endOfScroller.value)
+
+  if (endOfScroller.value) {
+    observer.observe(endOfScroller.value)
+  }
 })
 </script>
 
