@@ -12,9 +12,14 @@ export const useCharactersStore = defineStore('charactersStore', () => {
   const charactersDataCurrentPage = ref(1)
   const isCharactersFetching = ref(false)
 
-  const fetchCharacters = async (parameters?: FilterCharactersDto) => {
+  const fetchCharacters = async () => {
     try {
-      const { results, info } = await api.characters.filter(parameters)
+      const { results, info } = await api.characters.filter({
+        gender: charactersFilters.characterGenderFilter,
+        name: charactersFilters.characterNameFilter,
+        status: charactersFilters.characterStatusFilter,
+        page: charactersDataCurrentPage.value,
+      })
       charactersDataInfo.value = { ...info }
       return results
     } catch (error) {
@@ -25,23 +30,14 @@ export const useCharactersStore = defineStore('charactersStore', () => {
   const getCharacters = async () => {
     isCharactersFetching.value = true
     charactersDataCurrentPage.value = 1
-    characters.value = await fetchCharacters({
-      gender: charactersFilters.characterGenderFilter,
-      name: charactersFilters.characterNameFilter,
-      status: charactersFilters.characterStatusFilter,
-    })
+    characters.value = await fetchCharacters()
     isCharactersFetching.value = false
   }
 
   const getNewCharactersPage = async () => {
     charactersDataCurrentPage.value++
     if (charactersDataCurrentPage.value <= charactersDataInfo.value.pages) {
-      const newCharacters = await fetchCharacters({
-        gender: charactersFilters.characterGenderFilter,
-        name: charactersFilters.characterNameFilter,
-        status: charactersFilters.characterStatusFilter,
-        page: charactersDataCurrentPage.value,
-      })
+      const newCharacters = await fetchCharacters()
       characters.value = [...characters.value, ...newCharacters]
     }
   }
