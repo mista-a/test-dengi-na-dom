@@ -1,13 +1,17 @@
 <template>
   <div class="characters-wrapper">
     <h2 v-if="!characters.length">Not found.</h2>
-    <InfiniteScroller class="characters" @infinite="getNewCharactersPage">
+    <div class="characters">
       <CharacterCard
-        v-for="(character, index) of characters"
+        v-for="character of characters"
         :key="character.id"
         :character="character"
       />
-    </InfiniteScroller>
+      <InfiniteScroller
+        v-if="!isCharactersFetching"
+        @infinite="getNewCharactersPage"
+      />
+    </div>
     <DataLoader :active="isCharactersFetching" />
   </div>
 </template>
