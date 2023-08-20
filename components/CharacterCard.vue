@@ -26,6 +26,11 @@ defineProps<{
   background: #f7f7f7;
   width: 100%;
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.15s, transform 0.15s;
+}
+.character:hover {
+  transform: scale(1.03);
+  box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.55);
 }
 .character-img {
   min-height: 275px;
