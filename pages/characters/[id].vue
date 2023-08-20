@@ -1,5 +1,5 @@
 <template>
-  <div class="character">
+  <div v-if="!isCharacterFetching" class="character">
     <div>
       <img class="character-avatar" :src="character?.image" alt="character" />
       <h1>{{ character?.name }}</h1>
@@ -26,6 +26,7 @@
       </div>
     </div>
   </div>
+  <SpinnerLoader v-else="isCharacterFetching" />
 </template>
 
 <script setup lang="ts">
@@ -33,13 +34,14 @@ import api from '~/api/api'
 import { IDetailCharacter } from '~/types/character'
 
 const character = ref<IDetailCharacter>()
+const isCharacterFetching = ref(false)
 
 const route = useRoute()
 
 onMounted(async () => {
+  isCharacterFetching.value = true
   character.value = await api.characters.getDetailedCharacter(+route.params.id)
-
-  console.log(await api.characters.getDetailedCharacter(+route.params.id))
+  isCharacterFetching.value = false
 })
 </script>
 
@@ -50,6 +52,8 @@ onMounted(async () => {
 }
 .character-avatar {
   border-radius: 16px;
+  min-width: 300px;
+  min-height: 300px;
 }
 .episodes {
   display: grid;

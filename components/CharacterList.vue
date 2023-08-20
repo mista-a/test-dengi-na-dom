@@ -13,6 +13,7 @@
       />
     </div>
     <DataLoader :active="isCharactersFetching" />
+    <SpinnerLoader v-if="isNewCharacterPageFetching" />
   </div>
 </template>
 
@@ -22,7 +23,8 @@ import { storeToRefs } from 'pinia'
 
 const charactersStore = useCharactersStore()
 const { getCharacters, getNewCharactersPage } = charactersStore
-const { characters, isCharactersFetching } = storeToRefs(charactersStore)
+const { characters, isCharactersFetching, isNewCharacterPageFetching } =
+  storeToRefs(charactersStore)
 
 onMounted(() => getCharacters())
 </script>

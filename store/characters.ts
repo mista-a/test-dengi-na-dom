@@ -11,6 +11,7 @@ export const useCharactersStore = defineStore('charactersStore', () => {
   const charactersDataInfo = ref<ICharacterDataInfo>({ pages: 0 })
   const charactersDataCurrentPage = ref(1)
   const isCharactersFetching = ref(false)
+  const isNewCharacterPageFetching = ref<boolean>(true)
 
   const fetchCharacters = async () => {
     try {
@@ -35,11 +36,15 @@ export const useCharactersStore = defineStore('charactersStore', () => {
   }
 
   const getNewCharactersPage = async () => {
+    isNewCharacterPageFetching.value = true
+
     charactersDataCurrentPage.value++
     if (charactersDataCurrentPage.value <= charactersDataInfo.value.pages) {
       const newCharacters = await fetchCharacters()
       characters.value = [...characters.value, ...newCharacters]
     }
+
+    isNewCharacterPageFetching.value = false
   }
 
   return {
@@ -49,5 +54,6 @@ export const useCharactersStore = defineStore('charactersStore', () => {
     charactersDataCurrentPage,
     getCharacters,
     getNewCharactersPage,
+    isNewCharacterPageFetching,
   }
 })
