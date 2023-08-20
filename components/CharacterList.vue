@@ -12,7 +12,7 @@
         @infinite="getNewCharactersPage"
       />
     </div>
-    <DataLoader :active="isCharactersFetching" />
+    <DataLoader v-show="isCharactersFetching" />
     <SpinnerLoader v-if="isNewCharacterPageFetching" />
   </div>
 </template>

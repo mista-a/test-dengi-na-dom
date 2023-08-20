@@ -1,12 +1,6 @@
 <template>
-  <div :class="{ loader: active }"></div>
+  <div class="loader"></div>
 </template>
-
-<script setup lang="ts">
-defineProps<{
-  active: boolean
-}>()
-</script>
 
 <style scoped>
 .loader {
