@@ -51,7 +51,7 @@ const isChecked = computed(() => {
 }
 
 .radio-input {
-  visibility: hidden;
+  opacity: 0;
   padding: 4px;
   width: 0;
   height: 0;
